@@ -181,6 +181,7 @@
 
 ### Fixed
 
+- Crash recovery, chat history, diagnostics, local files, libraries, saved credentials, and the sync outbox keep saving after Safari suspends the tab. Safari closes their IndexedDB connections without telling the page, and every later write failed with "The database connection is closing" until the page was reloaded.
 - HTML, Tailwind JSX, and Vue and React exports keep a text's character styles as spans, its lists as nested lists with Figma's markers, its paragraph spacing and first-line indent, and its decoration style, colour, thickness, offset, and skip ink, where they wrote the whole text in one style. Importing HTML reads them back: inline formatting and box-less paragraphs, headings, and lists join into one text layer.
 - Underlines and strikethroughs are drawn where and as Figma draws them, from the font's own metrics: underlines break around descenders, dotted ones are round dots, and a set offset or thickness is kept, in reopened `.fig` files too, which drew no strikethroughs and misplaced the other styles. Text saved to `.fig` or copied to Figma keeps its decorations there, where Figma showed underlined text without them and underlined text over several lines not at all.
 - Text that mixes font sizes keeps its auto line height when a `.fig` file OpenPencil saved is reopened. Every line took the height of the first, which pushed later lines down and cut them off.
