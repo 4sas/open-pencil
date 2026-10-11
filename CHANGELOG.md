@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Breaking changes
+
+- `CORNER_ROTATE_ZONE` is removed from `@open-pencil/core/constants`; the selection's resize and rotation zones are `TRANSFORM_ZONE` and `transformZoneAt` in `@open-pencil/core/geometry`, which also owns the `HandlePosition` and `CornerPosition` types.
+
+### Changed
+
+- A selected layer resizes and rotates where Figma's does: every edge resizes along its whole length within 7.5 px outside it and up to a tenth of the side inside it, corners within 7.5 px, and the area outside a corner within 16 px rotates; a frame's name takes a press before rotation but not before resizing. Layers under 24 px keep these zones outside them, and a layer under 10 px on both sides has none, taking presses within 16 px across its centre instead. A selection draws Figma's four corner handles, without the edge midpoints, and none on such a small layer.
+
 ## 0.16.0-beta.1 — 2026-10-11
 
 This is a pre-release: npm packages are published under the `next` tag, and installed apps on the stable release do not update to it. Linux package managers see `0.16.0-beta.1` as newer than `0.16.0`, so `.deb` and `.rpm` users should remove the beta before installing the final 0.16.0.
