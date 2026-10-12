@@ -5,11 +5,22 @@
 ### Breaking changes
 
 - `CORNER_ROTATE_ZONE` is removed from `@open-pencil/core/constants`; the selection's resize and rotation zones are `TRANSFORM_ZONE` and `transformZoneAt` in `@open-pencil/core/geometry`, which also owns the `HandlePosition` and `CornerPosition` types.
+- In scripts, a text node's `textCase`, `textStyleId`, and `fillStyleId` read `figma.mixed` while its characters differ, as in Figma, instead of the text's own value, and setting one restyles every character.
+
+### Added
+
+- Text keeps a case, a link, text and fill styles, and variable bindings for any range of its characters, as in Figma: the canvas draws each range in its own case, `.fig` files and the Figma clipboard keep them, apart from font weight bindings, HTML, Tailwind, and JSX exports write links as `<a href>` and cases as `text-transform` and HTML import reads them back, Design JSX `<Span>` takes `textCase` and `href`, and the Typography section's text case changes the selected characters while text is edited. Scripts read and set them with `getRangeTextCase`, `setRangeTextCase`, `getRangeHyperlink`, `setRangeHyperlink`, `getRangeTextStyleId`, `setRangeTextStyleIdAsync`, `getRangeFillStyleId`, `setRangeFillStyleIdAsync`, `getRangeBoundVariable`, `setRangeBoundVariable`, and the text's `hyperlink`.
 
 ### Changed
 
 - A selected layer resizes and rotates where Figma's does: every edge resizes along its whole length within 7.5 px outside it and up to a tenth of the side inside it, corners within 7.5 px, and the area outside a corner within 16 px rotates; a frame's name takes a press before rotation but not before resizing. Layers under 24 px keep these zones outside them, and a layer under 10 px on both sides has none, taking presses within 16 px across its centre instead. A selection draws Figma's four corner handles, without the edge midpoints, and none on such a small layer.
 - Pasted layers keep how they were turned and flipped on the canvas, as in Figma, so a layer copied out of a rotated frame stays at its angle in an upright one, and paste to replace keeps the copied layer's angle too. Layers copied out of a frame or section keep their offset from its box on the canvas, and move into the frame only when they start past its far edge, or, for top-level layers, miss it: then layers that fit are centred on that axis, and larger ones go to the frame's top-left, or are centred if top-level. Layers overlapping an edge stay where they are, and layers copied from different places are placed each from its own.
+
+### Fixed
+
+- Lines of text that mix font sizes or line heights are spaced as in Figma: each line is as tall as the tallest line height on it, with its largest font centred in it, instead of stacking the tallest parts of every style on it, which put lines after a large word or a taller line height up to 10 px off.
+- A line height in pixels shorter than the font, such as 24 px on 24 px text, opens from `.fig` files as set instead of as the font's own height.
+- Text with an empty line, or ending in one, saved to `.fig` or copied to Figma shows there, where Figma showed it blank.
 
 ## 0.16.0-beta.1 — 2026-10-11
 
