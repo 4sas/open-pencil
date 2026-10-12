@@ -1,7 +1,6 @@
 import { type OverrideField, SCENE_OVERRIDE_FIELDS } from '#fig/instance-overrides/fields'
 import { compact } from 'es-toolkit'
 
-import { stringToGuid } from '@open-pencil/kiwi/fig/guid'
 import {
   forEachInstanceOverride,
   ownsSlotContent,
@@ -14,26 +13,18 @@ import type { GUID, Vector } from '@open-pencil/scene-graph/primitives'
 import { instanceExportAddress } from '../instance/geometry'
 import { mergeVariableConsumptionMaps, overrideVariableBindingEntry } from '../variable/bindings'
 import {
-  buildStyleReferences,
   createFillPaints,
   createStrokePaints,
   getOrCreateNodeGuid,
+  exportedStyleReference,
   instanceGuidResolver,
   isDescendantOf,
   type KiwiNodeChange,
   type KiwiSymbolOverridePayload,
-  type SceneNodeToKiwiContext,
-  type StyleReference
+  type SceneNodeToKiwiContext
 } from './context'
 import { fillsOwnSizingAxis } from './fill-sizing'
 import { exportedNode } from './resolved-bindings'
-
-function exportedTextStyleReference(context: SceneNodeToKiwiContext, id: string): StyleReference {
-  context.styleReferences ??= buildStyleReferences(context.graph)
-  const mapped = context.nodeIdToGuid?.get(id)
-  if (mapped) return { guid: mapped }
-  return context.styleReferences.get(id) ?? { guid: stringToGuid(id) }
-}
 
 function unscaledRootSize(instance: SceneNode, target: SceneNode): Vector {
   const scale = instance.componentScale
@@ -148,7 +139,7 @@ function rawClaim(
     }
     case 'text-style':
       return target.textStyleId
-        ? { styleIdForText: exportedTextStyleReference(context, target.textStyleId) }
+        ? { styleIdForText: exportedStyleReference(context, target.textStyleId) }
         : undefined
     case 'paint':
       return raw === 'fillPaints'
