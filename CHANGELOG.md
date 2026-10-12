@@ -9,6 +9,7 @@
 
 ### Added
 
+- Enter opens a selected vector's path for editing, as a double-click does, as in Figma.
 - Text keeps a case, a link, text and fill styles, and variable bindings for any range of its characters, as in Figma: the canvas draws each range in its own case, `.fig` files and the Figma clipboard keep them, apart from font weight bindings, HTML, Tailwind, and JSX exports write links as `<a href>` and cases as `text-transform` and HTML import reads them back, Design JSX `<Span>` takes `textCase` and `href`, and the Typography section's text case changes the selected characters while text is edited. Scripts read and set them with `getRangeTextCase`, `setRangeTextCase`, `getRangeHyperlink`, `setRangeHyperlink`, `getRangeTextStyleId`, `setRangeTextStyleIdAsync`, `getRangeFillStyleId`, `setRangeFillStyleIdAsync`, `getRangeBoundVariable`, `setRangeBoundVariable`, and the text's `hyperlink`.
 - Switch a frame to a group and back from the layer type menu in the properties panel header, as in Figma. A frame becomes a group that keeps its layers, effects, and opacity and fits them; a group becomes a frame of its bounds that clips.
 - Edit the layout guides of several frames at once: the panel lists them while the frames' guides match and edits every frame in one undo step, and while they differ offers Add, which gives each frame one new guide. A new guide is Figma's 10 px grid.
@@ -26,6 +27,7 @@
 - In scripts, `setProperties` switches an instance's variant, alongside its other properties, and fails without changing anything when no variant has the values, with Figma's messages; `resize` places a frame's layers by their constraints while `resizeWithoutConstraints` leaves them, and an instance's layers follow their constraints either way.
 - **Settings…** (<kbd>⌘</kbd><kbd>,</kbd>) is in the **OpenPencil** menu on macOS and at the end of the **File** menu elsewhere, instead of under **View → Preferences**.
 - The demo at `/demo` is a tour of one player card in eight chapters stacked on one canvas, each showing one thing with a numbered card that says what to try and draws the piece of the app to click: preview, the artwork slot, the controls' behaviours, the theme's modes, shader fills, the Code tab, Lint on a card with planted issues, and sharing and opening your own files. It opens on the first chapter with the rest below it and follows the app's light or dark theme. The welcome dialog on first launch offers it next to AI setup, and File > Open the Tour opens it any time.
+- In scripts, a vector inside an instance refuses `vectorPaths`, `vectorNetwork`, `setVectorNetworkAsync`, and `handleMirroring` with Figma's errors, such as `in set_vectorPaths: This property cannot be overridden in an instance: vector-data`, since its path always follows the component.
 
 ### Fixed
 
@@ -50,6 +52,7 @@
 - The properties panel shows the shared styles layers use in opened `.fig` files, where it listed them as missing styles.
 - Styles made in OpenPencil, by importing design tokens or by pasting layers from another document, are saved in `.fig` files as styles, and layers reopen with them. Saving wrote their references empty, so reopening dropped the styles, and saving into an opened file made them layers of the page in Figma.
 - Layers and text that use a library style keep it in Figma after OpenPencil saves them, where Figma showed them with no style.
+- A path edited in a component reaches its instances, as in Figma, scaled with each copy where constraints or a resized instance changed its size; copies whose instance overrides their fill or stroke keep those. A vector inside an instance no longer opens for path editing, which would have been undone by the next component edit. Straight lines in resized instances of `.fig` files open at the length Figma draws them instead of their component's.
 
 ## 0.16.0-beta.1 — 2026-10-11
 
