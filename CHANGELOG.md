@@ -13,6 +13,7 @@
 
 ### Changed
 
+- **Settings…** (<kbd>⌘</kbd><kbd>,</kbd>) is in the **OpenPencil** menu on macOS and at the end of the **File** menu elsewhere, instead of under **View → Preferences**.
 - A selected layer resizes and rotates where Figma's does: every edge resizes along its whole length within 7.5 px outside it and up to a tenth of the side inside it, corners within 7.5 px, and the area outside a corner within 16 px rotates; a frame's name takes a press before rotation but not before resizing. Layers under 24 px keep these zones outside them, and a layer under 10 px on both sides has none, taking presses within 16 px across its centre instead. A selection draws Figma's four corner handles, without the edge midpoints, and none on such a small layer.
 - Pasted layers keep how they were turned and flipped on the canvas, as in Figma, so a layer copied out of a rotated frame stays at its angle in an upright one, and paste to replace keeps the copied layer's angle too. Layers copied out of a frame or section keep their offset from its box on the canvas, and move into the frame only when they start past its far edge, or, for top-level layers, miss it: then layers that fit are centred on that axis, and larger ones go to the frame's top-left, or are centred if top-level. Layers overlapping an edge stay where they are, and layers copied from different places are placed each from its own.
 - The demo at `/demo` is a tour of one player card in eight chapters stacked on one canvas, each showing one thing with a numbered card that says what to try and draws the piece of the app to click: preview, the artwork slot, the controls' behaviours, the theme's modes, shader fills, the Code tab, Lint on a card with planted issues, and sharing and opening your own files. It opens on the first chapter with the rest below it and follows the app's light or dark theme. The welcome dialog on first launch offers it next to AI setup, and File > Open the Tour opens it any time.
@@ -25,10 +26,11 @@
 - An instance whose own content makes it taller or wider than its component, such as a hug frame around longer text, reopens at its saved size.
 - SVG export, and the HTML, JSX, and preview drawings built on it, draw a vector's open strokes beside its filled regions, such as the bar of a skip icon, instead of the regions alone.
 - The contrast check asks 3:1 of large text, 24 px or 18.66 px bold, as WCAG AA does, and 4.5:1 of the rest, holding a text layer to the strictest threshold any of its style runs needs.
-
-
-### Fixed
-
+- When saved credentials are paused, the home screen's storage section offers **Retry access** instead of a raw error that pointed to Settings with no way there.
+- Settings → MCP installs or updates a missing or outdated MCP server with one click, through Bun when Bun installed it, explains that it installs separately to keep the download small, and falls back to the install command and a prompt for your agent when npm is missing or the install fails; it no longer suggests reinstalling the old server's own version.
+- Where npm keeps global packages in a folder that needs administrator rights, as with Node from a Linux distribution or the nodejs.org installer on macOS, setup says so and shows the `sudo` command and a prompt for your agent instead of an install that fails, and installs a new MCP server or Harness with Bun when Bun is available.
+- Settings → Tool access lists the local MCP server's tools while the server is stopped, instead of an empty list saying no tools match the search.
+- Settings → MCP shows the local server in the desktop app and WebMCP in the browser, where each works, instead of a WebMCP section the desktop app can never use and a local server the browser reports as unreachable.
 - Lines of text that mix font sizes or line heights are spaced as in Figma: each line is as tall as the tallest line height on it, with its largest font centred in it, instead of stacking the tallest parts of every style on it, which put lines after a large word or a taller line height up to 10 px off.
 - A line height in pixels shorter than the font, such as 24 px on 24 px text, opens from `.fig` files as set instead of as the font's own height.
 - Text with an empty line, or ending in one, saved to `.fig` or copied to Figma shows there, where Figma showed it blank.
