@@ -35,6 +35,7 @@
         "@open-pencil/core": "workspace:*",
         "@open-pencil/design-jsx": "workspace:*",
         "@open-pencil/dom-css": "workspace:*",
+        "@open-pencil/feedback": "workspace:*",
         "@open-pencil/fig": "workspace:*",
         "@open-pencil/harness": "workspace:*",
         "@open-pencil/kiwi": "workspace:*",
@@ -282,6 +283,7 @@
       },
       "devDependencies": {
         "@open-pencil/brand-tools": "workspace:*",
+        "@open-pencil/feedback": "workspace:*",
         "@shikijs/vitepress-twoslash": "^4.4.3",
         "@tailwindcss/vite": "^4.3.3",
         "vitepress": "^2.0.0-alpha.19",
